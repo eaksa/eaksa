@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./zsh.nix
+    ./zsh
   ];
 }
