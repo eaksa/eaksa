@@ -28,7 +28,7 @@ return {
 			weight = "DemiBold",
 		},
 	},
-    font_size = 12.5,
+    font_size = 11,
     font_rules = {
         {
             intensity = "Half",
