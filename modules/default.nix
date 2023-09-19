@@ -3,6 +3,7 @@ _: {
     ./dev
     ./graphical
     ./shell
+    ./system
     ./terminal
   ];
 }
