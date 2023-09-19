@@ -4,10 +4,17 @@
   inputs = {
     # Package sets
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    # Environment/system management
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs = { nixpkgs.follows = "nixpkgs"; };
+    };
   };
 
   outputs = inputs @ {
     self,
+    home-manager,
     nixpkgs,
     ...
   }:
@@ -22,6 +29,12 @@
           nix.settings = { experimental-features = "nix-command flakes"; };
           nixpkgs.config = { allowUnfree = true; };
         };
+        homeManager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          extraSpecialArgs = { inherit inputs user; };
+          users.${user.name} = { imports = [ ./home ]; };
+        };
         system = { system, hostName }:
           let
             modules = [
@@ -29,6 +42,9 @@
               ./platforms/linux/configuration.nix
               ./hosts/${hostName}/hardware-configuration.nix
               ./modules
+              home-manager.nixosModules.home-manager {
+                home-manager = configuration.homeManager;
+              }
             ];
           in
             nixpkgs.lib.nixosSystem {
