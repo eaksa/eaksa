@@ -5,4 +5,7 @@
     homeDirectory = "/home/${user.name}";
     stateVersion = "23.05";
   };
+  imports = [
+    ./graphical
+  ];
 }
