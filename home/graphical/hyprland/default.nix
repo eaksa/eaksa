@@ -175,6 +175,8 @@ _: let
       eww daemon
     '' ];
     exec = [
+      "swww init &"
+      "swww img /etc/wallpapers/wall_morning.png"
       "eww close-all"
       "eww open bar"
     ];
