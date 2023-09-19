@@ -17,8 +17,8 @@ _: let
     general = {
       border_size = 3;
       no_border_on_floating = false;
-      gaps_in = 6;
-      gaps_out = 12;
+      gaps_in = 4;
+      gaps_out = 8;
       "col.inactive_border" = colours.black;
       "col.active_border" =
         "${colours.magenta} ${colours.blue} ${colours.cyan} ${colours.blue} 45deg";
@@ -26,7 +26,7 @@ _: let
       layout = "dwindle";
     };
     decoration = {
-      rounding = 10;
+      rounding = 8;
       multisample_edges = true;
       active_opacity = 0.95;
       inactive_opacity = 0.85;
@@ -167,6 +167,16 @@ _: let
       # Move/resize windows
       "SUPER, mouse:271, movewindow"
       "SUPER, mouse:272, resizewindow"
+    ];
+
+    # Startup
+    exec-once = [ ''
+      eww kill
+      eww daemon
+    '' ];
+    exec = [
+      "eww close-all"
+      "eww open bar"
     ];
   };
 

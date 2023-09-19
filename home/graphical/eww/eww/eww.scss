@@ -1,0 +1,79 @@
+*{
+    all: unset;
+    font-family: "BlexMono Nerd Font";
+    font-size: 12px;
+    color: #FFFFFF;
+}
+
+.dock-box, .workspace-box, .user {
+    background-color: #222436;
+    opacity: 0.9;
+    border-radius: 15px;
+    // border: 3px solid #1B1D2B;
+}
+
+.dock-box {
+    padding: 3px 18px 3px 18px;
+}
+
+
+.user {
+    font-size: 15px;
+    color: #C099FF;
+    padding: 0px 14px 0px 14px;
+}
+
+.workspace-box {
+    padding: 4px 4px 4px 4px;
+}
+
+.graph {
+    margin-right: 6px;
+    color: #FFC777;
+    background-color: #FF757F;
+    padding: 0px 3px 0px 3px;
+}
+
+.graph-text {
+    font-size: 7px;
+    font-weight: bold;
+}
+
+.graph-title {
+    font-size: 5px;
+}
+
+.time {
+    font-weight: bold;
+}
+
+.bar {
+    margin: 8px 8px 0px 8px;
+}
+
+.ws-active, .ws-inactive {
+    padding: 0px 18px 0px 14px;
+}
+
+.ws-active {
+    font-weight: bold;
+    background-color: #3C3E4F;
+    border-radius: 14px;
+}
+
+.ws-active-id {
+    font-weight: bold;
+}
+
+.ws-inactive-id, .ws-inactive-icon {
+    color: #939AB7;
+}
+
+.ws-active-icon, .ws-inactive-icon {
+    font-size: 9px;
+}
+
+.ws-active-icon {
+    color: #F5A97F;
+
+}

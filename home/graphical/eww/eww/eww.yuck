@@ -1,0 +1,146 @@
+(defpoll DATE
+         :interval "5s"
+         "date '+%a, %d %b'")
+
+(defpoll TIME
+         :interval "5s"
+         "date '+%H:%M'")
+
+(defpoll ACTIVE-WORKSPACE
+         :interval "1s"
+         'hyprctl activeworkspace -j | jq ".id"')
+
+(defpoll WORKSPACES
+         :interval "1s"
+         "zsh ./scripts/workspaces.zsh")
+
+(defpoll WINDOWS
+         :interval "1s"
+         "hyprctl clients -j")
+
+(defwidget todo []
+           (box :orientation "h"
+                :visible false
+                (label :text "todo")))
+
+;; HACK: For some reason ACTIVE-WORKSPACE-checking will only work when this
+;;       function is called. Probably something to do with some kind of
+;;       lazily-evaluated control flow.
+(defwidget workspace-checker []
+           (label :visible false
+                  :text {ACTIVE-WORKSPACE == 1}))
+
+(defwidget user []
+           (label :class "user"
+                  :justified "center"
+                  :text "🦅"))
+                  ;; :text "󱄅"))
+
+(defwidget space [ws]
+           (button :onclick "hyprctl dispactch workspace ${ws.id}"
+                   (box :class { ws.id == ACTIVE-WORKSPACE ? "ws-active" : "ws-inactive" }
+                        :spacing 14
+                        :space-evenly false
+                        (label :class { ws.id == ACTIVE-WORKSPACE ? "ws-active-id" : "ws-inactive-id" }
+                               :text "${ws.id}")
+                        (label :class { ws.id == ACTIVE-WORKSPACE ? "ws-active-icon" : "ws-inactive-icon" }
+                               :text "${ws.icons}"))))
+
+(defwidget workspaces []
+           (box :class "workspace-box"
+                :orientation "h"
+                :space-evenly false
+                (for ws in WORKSPACES (space :ws ws))))
+
+(defwidget cpu []
+           (box :orientation "h"
+                :space-evenly false
+                (graph :class "graph"
+                       :value { EWW_CPU["avg"] }
+                       :width 70
+                       :thickness 1.0
+                       :time-range "3m"
+                       :max 100.0
+                       :dynamic false)
+                (box :orientation "v"
+                     :spacing -4
+                     (label :class "graph-title"
+                            :halign "start"
+                            :text "CPU")
+                     (label :class "graph-text"
+                            :text '${round(EWW_CPU["avg"], 0)}%'))))
+
+(defwidget ram []
+           (box :orientation "h"
+                :space-evenly false
+                (graph :class "graph"
+                       :value { EWW_RAM["used_mem_perc"] }
+                       :width 70
+                       :thickness 2.0
+                       :time-range "2m"
+                       :max 100.0
+                       :dynamic false)
+                (box :orientation "v"
+                     :spacing -4
+                     (label :class "graph-title"
+                            :halign "start"
+                            :text "RAM")
+                     (label :class "graph-text"
+                            :text '${round(EWW_RAM["used_mem_perc"], 0)}%'))))
+
+;; TODO: Battery widget
+(defwidget battery []
+           (box :orientation "h"
+                :space-evenly false
+                :visible { EWW_BATTERY != "" }
+                (label :text '${round(jq(EWW_BATTERY, "[.[].capacity] | add / length"), 0)}%')))
+
+(defwidget system []
+           (box :class "dock-box"
+                :orientation "h"
+                :space-evenly "false"
+                (cpu)
+                ;; (ram)
+                (battery)))
+
+(defwidget cal []
+           (box :class "dock-box"
+                :orientation "h"
+                :spacing 14
+                :space-evenly "false"
+                (label :class "date"
+                       :halign "start"
+                       :wrap "false"
+                       :text DATE)
+                (label :class "time"
+                       :halign "start"
+                       :wrap "false"
+                       :text TIME)))
+
+(defwindow bar
+           :monitor 0
+           :exclusive true
+           :wm-ignore false
+           :geometry (geometry :x "0px"
+                               :y "0px"
+                               :width "100%"
+                               :anchor "top center")
+           (centerbox :class "bar"
+                      :orientation "h"
+                      (box :orientation "h"
+                           :spacing 8
+                           :space-evenly false
+                           :halign "start"
+                           (user)
+                           (workspaces)
+                           (workspace-checker))
+                      (box :orientation "h"
+                           :space-evenly false
+                           :halign "center"
+                           (todo))
+                      (box :orientation "h"
+                           :spacing 8
+                           :space-evenly false
+                           :halign "end"
+                           (system)
+                           (cal))))
