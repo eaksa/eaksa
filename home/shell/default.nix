@@ -1,6 +1,5 @@
 _: {
   imports = [
-    ./neovim
-    ./ranger
+    ./zsh.nix
   ];
 }

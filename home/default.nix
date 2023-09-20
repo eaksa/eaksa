@@ -8,6 +8,7 @@
   imports = [
     ./graphical
     ./programs
+    ./shell
     ./terminal
   ];
 }
