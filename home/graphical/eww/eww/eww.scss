@@ -1,21 +1,49 @@
 *{
     all: unset;
     font-family: "BlexMono Nerd Font";
-    font-size: 12px;
+    font-size: 13px;
     color: #FFFFFF;
+}
+
+.bar {
+    margin: 6px 8px 0px 8px;
+}
+
+.battery {
+    margin: 4px 0px 4px 0px;
+    background-color: grey;
+    border-radius: 3px;
+}
+
+.battery-capacity {
+    background-color: white;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.battery-label {
+    color: #1B1D2B;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.battery-lid {
+    margin: 8px 0px 8px 1px;
+    background-color: grey;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
 }
 
 .dock-box, .workspace-box, .user {
     background-color: #222436;
     opacity: 0.9;
-    border-radius: 15px;
+    border-radius: 14px;
     // border: 3px solid #1B1D2B;
 }
 
 .dock-box {
-    padding: 3px 18px 3px 18px;
+    padding: 5px 18px 5px 18px;
 }
-
 
 .user {
     font-size: 15px;
@@ -35,7 +63,7 @@
 }
 
 .graph-text {
-    font-size: 7px;
+    font-size: 8px;
     font-weight: bold;
 }
 
@@ -45,10 +73,6 @@
 
 .time {
     font-weight: bold;
-}
-
-.bar {
-    margin: 8px 8px 0px 8px;
 }
 
 .ws-active, .ws-inactive {
@@ -69,11 +93,6 @@
     color: #939AB7;
 }
 
-.ws-active-icon, .ws-inactive-icon {
-    font-size: 9px;
-}
-
 .ws-active-icon {
     color: #F5A97F;
-
 }
