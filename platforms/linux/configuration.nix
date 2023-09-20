@@ -3,9 +3,12 @@
     ./apple-silicon/apple-silicon-support
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = false;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = false;
+    };
+    m1n1CustomLogo = ./boot_logo.png;
   };
 
   hardware = {
