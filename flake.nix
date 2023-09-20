@@ -10,55 +10,57 @@
       url = "github:nix-community/home-manager";
       inputs = { nixpkgs.follows = "nixpkgs"; };
     };
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = inputs @ {
     self,
     home-manager,
     nixpkgs,
+    nur,
     ...
-  }:
-    let
-      user = {
-        name = "elang";
-        timeZone = "Asia/Jakarta";
-        locale = "en_GB.UTF-8";
+  }: let
+    user = {
+      name = "elang";
+      timeZone = "Asia/Jakarta";
+      locale = "en_GB.UTF-8";
+    };
+    configuration = {
+      nix = {
+        nix.settings = { experimental-features = "nix-command flakes"; };
+        nixpkgs = {
+          config = { allowUnfree = true; };
+          overlays = [ nur.overlay ];
+        };
       };
-      configuration = rec {
-        nix = {
-          nix.settings = { experimental-features = "nix-command flakes"; };
-          nixpkgs.config = { allowUnfree = true; };
-        };
-        homeManager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = { inherit inputs user; };
-          users.${user.name} = { imports = [ ./home ]; };
-        };
-        system = { system, hostName }:
-          let
-            modules = [
-              configuration.nix
-              ./platforms/linux/configuration.nix
-              ./hosts/${hostName}/hardware-configuration.nix
-              ./modules
-              home-manager.nixosModules.home-manager {
-                home-manager = configuration.homeManager;
-              }
-            ];
-          in
-            nixpkgs.lib.nixosSystem {
-              inherit modules system;
-              specialArgs = { inherit hostName inputs user; };
-            };
+      homeManager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        extraSpecialArgs = { inherit inputs user; };
+        users.${user.name} = { imports = [ ./home ]; };
       };
-
-    in {
-      nixosConfigurations = {
-        marco-2021 = configuration.system {
-          system = "aarch64-linux";
-          hostName = "marco-2021";
-        };
+      system = { system, hostName }: let
+        modules = [
+          configuration.nix
+          ./platforms/linux/configuration.nix
+          ./hosts/${hostName}/hardware-configuration.nix
+          ./modules
+          home-manager.nixosModules.home-manager {
+            home-manager = configuration.homeManager;
+          }
+        ];
+      in nixpkgs.lib.nixosSystem {
+        inherit modules system;
+        specialArgs = { inherit hostName inputs user; };
       };
     };
+
+  in {
+    nixosConfigurations = {
+      marco-2021 = configuration.system {
+        system = "aarch64-linux";
+        hostName = "marco-2021";
+      };
+    };
+  };
 }
