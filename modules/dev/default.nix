@@ -1,5 +1,9 @@
 _: {
   imports = [
-    ./git.nix
+    ./utils/git.nix
+
+    ./c.nix
+    ./go.nix
+    ./rust.nix
   ];
 }
