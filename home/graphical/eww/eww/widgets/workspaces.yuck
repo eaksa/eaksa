@@ -1,0 +1,23 @@
+(deflisten WORKSPACES
+    :initial "[]"
+    "bash ./scripts/workspaces/get-workspaces")
+
+(deflisten CURRENT_WORKSPACE
+    :initial "1"
+    "bash ./scripts/workspaces/get-active-workspace")
+
+(defwidget workspace_entry [ws]
+    (eventbox :onclick "hyprctl dispatch workspace ${ws.id}"
+              (box :class "workspace-entry ${ws.id == CURRENT_WORKSPACE ? "current" : ""} ${ws.icons == "" ? "empty" : "occupied"}"
+                   :visible {ws.id == CURRENT_WORKSPACE || ws.icons != ""}
+                   :space-evenly false
+                   :spacing 8
+                   (label :class "workspace-label ${ws.id == CURRENT_WORKSPACE ? "current" : ""} ${ws.icons == "" ? "empty" : "occupied"}"
+                          :text "${ws.id}")
+                   (label :class "workspace-icon ${ws.id == CURRENT_WORKSPACE ? "current" : ""} ${ws.icons == "" ? "empty" : "occupied"}"
+                          :text "${ws.icons}"))))
+
+(defwidget workspaces []
+    (box :class "workspace-box"
+         :space-evenly false
+         (for ws in WORKSPACES (workspace_entry :ws ws))))

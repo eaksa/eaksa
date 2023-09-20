@@ -1,5 +1,6 @@
 { lib, pkgs, ... }: lib.mkIf pkgs.stdenv.isLinux {
-  programs.jq.enable = true;
+  # Dependencies for polling widgets
+  home.packages = with pkgs; [ jq python311 socat ];
   programs.eww = {
     enable = true;
     package = pkgs.eww-wayland;

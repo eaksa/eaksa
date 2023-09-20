@@ -1,4 +1,5 @@
 (include "./widgets/battery.yuck")
+(include "./widgets/workspaces.yuck")
 
 (defpoll DATE
          :interval "5s"
@@ -8,52 +9,20 @@
          :interval "5s"
          "date '+%H:%M'")
 
-(defpoll ACTIVE-WORKSPACE
-         :interval "1s"
-         'hyprctl activeworkspace -j | jq ".id"')
-
-(defpoll WORKSPACES
-         :interval "1s"
-         "zsh ./scripts/workspaces.zsh")
-
 (defpoll WINDOWS
          :interval "1s"
          "hyprctl clients -j")
-
 
 (defwidget todo []
            (box :orientation "h"
                 :visible false
                 (label :text "todo")))
 
-;; HACK: For some reason ACTIVE-WORKSPACE-checking will only work when this
-;;       function is called. Probably something to do with some kind of
-;;       lazily-evaluated control flow.
-(defwidget workspace-checker []
-           (label :visible false
-                  :text {ACTIVE-WORKSPACE == 1}))
-
 (defwidget user []
            (label :class "user"
                   :justified "center"
                      :text "🦅"))
                   ;; :text "󱄅"))
-
-(defwidget space [ws]
-           (button :onclick "hyprctl dispactch workspace ${ws.id}"
-                   (box :class { ws.id == ACTIVE-WORKSPACE ? "ws-active" : "ws-inactive" }
-                        :spacing 14
-                        :space-evenly false
-                        (label :class { ws.id == ACTIVE-WORKSPACE ? "ws-active-id" : "ws-inactive-id" }
-                               :text "${ws.id}")
-                        (label :class { ws.id == ACTIVE-WORKSPACE ? "ws-active-icon" : "ws-inactive-icon" }
-                               :text "${ws.icons}"))))
-
-(defwidget workspaces []
-           (box :class "workspace-box"
-                :orientation "h"
-                :space-evenly false
-                (for ws in WORKSPACES (space :ws ws))))
 
 (defwidget cpu []
            (box :orientation "h"
@@ -129,8 +98,7 @@
                            :space-evenly false
                            :halign "start"
                            (user)
-                           (workspaces)
-                           (workspace-checker))
+                           (workspaces))
                       (box :orientation "h"
                            :space-evenly false
                            :halign "center"

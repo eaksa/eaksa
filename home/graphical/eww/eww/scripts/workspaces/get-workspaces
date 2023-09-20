@@ -1,0 +1,105 @@
+#!/bin/bash
+
+get_icon () {
+    local initial_title=$1
+    local title=$2
+
+    local default_icon=""
+    local default_term_icon=""
+
+    local terminals=(
+        "Alacritty"
+        "Hyper"
+        "iTerm2"
+        "kitty"
+        "Terminal"
+        "wezterm"
+        "wezterm-gui"
+    )
+
+    local is_term_title="\<${initial_title}\>"
+    if [[ ${terminals[@]} =~ $is_term_title ]]; then
+        case $title in
+            "bluetoothctl")
+                icon="" ;;
+            "htop")
+                icon="󰝪" ;;
+            "nmtui")
+                icon="󰀂" ;;
+            "python" | "python3")
+                icon="" ;;
+            "ranger")
+                icon="" ;;
+            "vim" | "nvim")
+                icon="" ;;
+            *)
+                icon=$default_term_icon ;;
+        esac
+    else
+        case $initial_title in
+            "Firefox" | "Mozilla-Firefox")
+                icon="󰈹" ;;
+            "Spotify")
+                icon="" ;;
+            *) 
+                icon=$default_icon ;;
+        esac
+    fi
+    echo $icon
+}
+
+# spaces () {
+#     WORKSPACE_WINDOWS=$(hyprctl workspaces -j | jq 'map({key: .id | tostring, value: .windows}) | from_entries')
+#     seq 1 10 | jq --argjson windows "${WORKSPACE_WINDOWS}" --slurp -Mc 'map(tostring) | map({id: ., windows: ($windows[.]//0)})'
+# }
+
+
+get_space_icons () {
+    local space_id=$1
+    local space_icons=()
+
+    local client_initial_titles=($(echo $ACTIVE_WORKSPACES | jq --arg sid $space_id -r '
+        [.[$sid | tostring][].initialTitle]
+        | map(gsub("\\s";"-"))
+        | .[]
+    '))
+    local client_titles=($(echo $ACTIVE_WORKSPACES | jq --arg sid $space_id -r '
+        [.[$sid | tostring][].title]
+        | map(gsub("\\s";"-"))
+        | .[]
+    '))
+
+    for (( i=0; i<${#client_initial_titles[@]}; i++ )); do
+        local window_icon=$(get_icon ${client_initial_titles[i]} ${client_titles[i]})
+        space_icons+=($window_icon)
+        # local is_duplicate="\<${window_icon}\>"
+        # if [[ ! ${space_icons[@]} =~ $is_duplicate ]]; then
+        #     space_icons+=($window_icon)
+        # fi
+    done
+
+    # echo $SPACE | jq ". | .icons |= \"${SPACE_ICONS}\""
+    echo ${space_icons[@]}
+}
+
+get_spaces () {
+    ACTIVE_WORKSPACES=$(hyprctl clients -j | jq "
+        group_by(.workspace.id)
+        | map({(.[0].workspace.id | tostring): [.[]]})
+        | add
+    ")
+
+    # local spaces=()
+    local spaces=$(seq 10 | jq --slurp 'map({(. | tostring): ""}) | add')
+    local space_id_list=($(echo $ACTIVE_WORKSPACES | jq -r "keys[]"))
+
+    for sid in ${space_id_list[@]}; do
+        spaces=$(echo $spaces | jq ". | .\"$sid\" |= \"$(get_space_icons $sid)\"")
+    done
+    echo ${spaces[@]} | jq -Mc 'to_entries | map({id: .key, icons: .value})'
+}
+
+get_spaces
+socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
+    get_spaces
+done

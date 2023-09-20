@@ -75,24 +75,25 @@
     font-weight: bold;
 }
 
-.ws-active, .ws-inactive {
+.workspace-entry {
     padding: 0px 18px 0px 14px;
 }
 
-.ws-active {
+.workspace-entry.current {
     font-weight: bold;
     background-color: #3C3E4F;
     border-radius: 14px;
 }
 
-.ws-active-id {
+.workspace-label.current {
     font-weight: bold;
+    color: #FFFFFF;
 }
 
-.ws-inactive-id, .ws-inactive-icon {
+.workspace-label, .workspace-icon {
     color: #939AB7;
 }
 
-.ws-active-icon {
+.workspace-icon.current {
     color: #F5A97F;
 }
