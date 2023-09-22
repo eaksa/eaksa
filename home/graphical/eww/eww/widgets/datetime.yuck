@@ -1,0 +1,15 @@
+(defpoll DATE
+         :interval "5s"
+         "date '+%a, %d %b'")
+
+(defpoll TIME
+         :interval "5s"
+         "date '+%H:%M'")
+
+(defwidget date []
+     (label :class "date"
+            :text DATE))
+
+(defwidget time []
+     (label :class "time"
+            :text TIME))

@@ -1,99 +1,116 @@
 *{
-    all: unset;
     font-family: "BlexMono Nerd Font";
-    font-size: 13px;
-    color: #FFFFFF;
+}
+
+text {
+    color: #828BB8;
 }
 
 .bar {
-    margin: 6px 8px 0px 8px;
+    background-color: unset;
+    margin: 0px 4px 0px 4px;
 }
 
-.battery {
-    margin: 4px 0px 4px 0px;
-    background-color: grey;
+.dock {
+    background-color: #222436;
+    opacity: 0.9;
+    border: 3px solid #1B1D2B;
+    border-radius: 16px;
+    padding: 4px 15px 4px 15px;
+    margin: 6px 4px 0px 4px;
+    font-size: 13px;
+}
+
+.user {
+    margin: -6px -4px -6px -4px;
+    font-size: 18px;
+}
+
+.battery trough, .battery progress {
+    padding: 4px 0px 4px 0px;
     border-radius: 3px;
+    min-height: 4px;
 }
 
-.battery-capacity {
-    background-color: white;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+.battery progress {
+    min-width: 1px;
+}
+.battery trough {
+    min-width: 40px;
+    background-color: lighten($color: #1B1D2B, $amount: 25);
 }
 
-.battery-label {
+.battery label {
     color: #1B1D2B;
     font-size: 10px;
     font-weight: bold;
 }
 
-.battery-lid {
-    margin: 8px 0px 8px 1px;
-    background-color: grey;
+.battery.low progress {
+    background-color: #FF757F;
+}
+
+.battery.low label {
+    color: #828BB8;
+}
+
+.battery.ac progress {
+    background-color: #C3E88D;
+}
+
+// Battery lid
+.battery box {
+    min-width: 2px;
+    margin: 7px 0px 7px 1px;
+    background-color: lighten($color: #1B1D2B, $amount: 25);
     border-top-right-radius: 1px;
     border-bottom-right-radius: 1px;
 }
 
-.dock-box, .workspace-box, .user {
-    background-color: #222436;
-    opacity: 0.9;
-    border-radius: 14px;
-    // border: 3px solid #1B1D2B;
+.workspace.module {
+    margin: -4px -15px -4px -15px;
 }
 
-.dock-box {
-    padding: 5px 18px 5px 18px;
-}
-
-.user {
-    font-size: 15px;
-    color: #C099FF;
+.workspace.entry {
     padding: 0px 14px 0px 14px;
+    color: #828BB8;
+    border-radius: 14px;
 }
 
-.workspace-box {
-    padding: 4px 4px 4px 4px;
+.workspace.entry box {
+    padding: 0px 2px 0px 8px;
 }
 
-.graph {
-    margin-right: 6px;
-    color: #FFC777;
-    background-color: #FF757F;
-    padding: 0px 3px 0px 3px;
-}
-
-.graph-text {
-    font-size: 8px;
+.workspace.entry.current {
     font-weight: bold;
+    color: #FFFFFF;
+    background-color: #3C3E4F;
 }
 
-.graph-title {
-    font-size: 5px;
+.workspace.entry.current box {
+    color: #F5A97F;
 }
 
 .time {
     font-weight: bold;
 }
 
-.workspace-entry {
-    padding: 0px 18px 0px 14px;
+.system circular-progress {
+    background-color: lighten($color: #1B1D2B, $amount: 25);
 }
 
-.workspace-entry.current {
-    font-weight: bold;
-    background-color: #3C3E4F;
-    border-radius: 14px;
+.system label {
+    margin: 2px 2px 2px 2px;
+    padding-right: 2px;
+    border-radius: 10px;
+    background-color: #222436;
+    font-size: 8px;
 }
 
-.workspace-label.current {
-    font-weight: bold;
-    color: #FFFFFF;
+.system.warning circular-progress {
+    color: #FFC777;
 }
 
-.workspace-label, .workspace-icon {
-    color: #939AB7;
-}
-
-.workspace-icon.current {
-    color: #F5A97F;
+.system.alert * {
+    color: #FF757F;
 }

@@ -1,0 +1,11 @@
+(defwidget cpu []
+    (overlay :class "system ${ EWW_CPU["avg"] > 20 ? "warning": "" } ${ EWW_CPU["avg"] > 70 ? "alert" : ""}"
+             (circular-progress :value { EWW_CPU["avg"] }
+                                :thickness 9.0)
+             (label :text "")))
+
+(defwidget ram []
+    (overlay :class "system ${ EWW_RAM["used_mem_perc"] > 20 ? "warning": "" } ${ EWW_RAM["used_mem_perc"] > 70 ? "alert" : ""}"
+             (circular-progress :value { EWW_RAM["used_mem_perc"] }
+                                :thickness 9.0)
+             (label :text "")))

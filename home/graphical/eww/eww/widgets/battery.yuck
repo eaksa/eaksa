@@ -1,23 +1,19 @@
 ;; Polls Macbook battery
 (defpoll MACSMC-BATTERY
-         :interval "1s"
-         "cat /sys/class/power_supply/macsmc-battery/capacity")
+    :interval "1s"
+    "cat /sys/class/power_supply/macsmc-battery/capacity")
 
 ;; Polls if Macbook is on AC power ("1" if on AC, "0" if on battery)
 (defpoll MACSMC-AC
-         :interval "1s"
-         "cat /sys/class/power_supply/macsmc-ac/online")
+    :interval "1s"
+    "cat /sys/class/power_supply/macsmc-ac/online")
 
 (defwidget battery []
-           (box :orientation "h"
-                :space-evenly false
-                (overlay (box :class "battery"
-                              :width 33
-                              :space-evenly false
-                              (box :class "battery-capacity"
-                                   :space-evenly false
-                                   :width {round(MACSMC-BATTERY / 2 - 7, 0)}))
-                         (label :class "battery-label"
-                                :text "${MACSMC-BATTERY}"))
-                (box :class "battery-lid"
-                     :width 2)))
+    (box :orientation "h"
+         :space-evenly false
+         :class "battery ${MACSMC-AC == 1 ? "ac" : ""} ${MACSMC-BATTERY <= 20 ? "low": ""}" 
+         (overlay :valign "center"
+                  (progress :value {(MACSMC-BATTERY - 10) / 70 * 100})
+                  (label :valign "center" 
+                         :text "${MACSMC-AC == 1 ? "󱐋" : ""}${MACSMC-BATTERY}"))
+         (box :class "battery-lid")))

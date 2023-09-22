@@ -1,87 +1,19 @@
 (include "./widgets/battery.yuck")
+(include "./widgets/datetime.yuck")
+(include "./widgets/system.yuck")
+(include "./widgets/user.yuck")
 (include "./widgets/workspaces.yuck")
 
-(defpoll DATE
-         :interval "5s"
-         "date '+%a, %d %b'")
-
-(defpoll TIME
-         :interval "5s"
-         "date '+%H:%M'")
-
-(defpoll WINDOWS
-         :interval "1s"
-         "hyprctl clients -j")
-
 (defwidget todo []
-           (box :orientation "h"
-                :visible false
-                (label :text "todo")))
+    (box :orientation "h"
+         :visible false
+         (label :text "todo")))
 
-(defwidget user []
-           (label :class "user"
-                  :justified "center"
-                     :text "🦅"))
-                  ;; :text "󱄅"))
-
-(defwidget cpu []
-           (box :orientation "h"
-                :space-evenly false
-                (graph :class "graph"
-                       :value { EWW_CPU["avg"] }
-                       :width 70
-                       :thickness 1.0
-                       :time-range "3m"
-                       :max 100.0
-                       :dynamic false)
-                (box :orientation "v"
-                     :spacing -4
-                     (label :class "graph-title"
-                            :halign "start"
-                            :text "CPU")
-                     (label :class "graph-text"
-                            :text '${round(EWW_CPU["avg"], 0)}%'))))
-
-(defwidget ram []
-           (box :orientation "h"
-                :space-evenly false
-                (graph :class "graph"
-                       :value { EWW_RAM["used_mem_perc"] }
-                       :width 70
-                       :thickness 2.0
-                       :time-range "2m"
-                       :max 100.0
-                       :dynamic false)
-                (box :orientation "v"
-                     :spacing -4
-                     (label :class "graph-title"
-                            :halign "start"
-                            :text "RAM")
-                     (label :class "graph-text"
-                            :text '${round(EWW_RAM["used_mem_perc"], 0)}%'))))
-
-(defwidget system []
-           (box :class "dock-box"
-                :orientation "h"
-                :space-evenly "false"
-                :spacing 14
-                (cpu)
-                ;; (ram)
-                (battery)))
-
-(defwidget cal []
-           (box :class "dock-box"
-                :orientation "h"
-                :spacing 14
-                :space-evenly "false"
-                (label :class "date"
-                       :halign "start"
-                       :wrap "false"
-                       :text DATE)
-                (label :class "time"
-                       :halign "start"
-                       :wrap "false"
-                       :text TIME)))
+(defwidget dock []
+    (box :class "dock"
+         :space-evenly false
+         :spacing 12
+    (children)))
 
 (defwindow bar
            :monitor 0
@@ -94,18 +26,19 @@
            (centerbox :class "bar"
                       :orientation "h"
                       (box :orientation "h"
-                           :spacing 8
                            :space-evenly false
                            :halign "start"
-                           (user)
-                           (workspaces))
+                           (dock (user))
+                           (dock (workspaces)))
                       (box :orientation "h"
                            :space-evenly false
                            :halign "center"
                            (todo))
                       (box :orientation "h"
-                           :spacing 8
                            :space-evenly false
                            :halign "end"
-                           (system)
-                           (cal))))
+                           (dock (battery)
+                                 (cpu)
+                                 (ram))
+                           (dock (date)
+                                 (time)))))

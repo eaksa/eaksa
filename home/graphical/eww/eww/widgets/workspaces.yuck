@@ -6,18 +6,18 @@
     :initial "1"
     "bash ./scripts/workspaces/get-active-workspace")
 
-(defwidget workspace_entry [ws]
-    (eventbox :onclick "hyprctl dispatch workspace ${ws.id}"
-              (box :class "workspace-entry ${ws.id == CURRENT_WORKSPACE ? "current" : ""} ${ws.icons == "" ? "empty" : "occupied"}"
-                   :visible {ws.id == CURRENT_WORKSPACE || ws.icons != ""}
-                   :space-evenly false
-                   :spacing 8
-                   (label :class "workspace-label ${ws.id == CURRENT_WORKSPACE ? "current" : ""} ${ws.icons == "" ? "empty" : "occupied"}"
-                          :text "${ws.id}")
-                   (label :class "workspace-icon ${ws.id == CURRENT_WORKSPACE ? "current" : ""} ${ws.icons == "" ? "empty" : "occupied"}"
-                          :text "${ws.icons}"))))
+(defwidget workspace-entry [workspace]
+    (box :class "workspace entry ${workspace.id == CURRENT_WORKSPACE ? "current" : ""} ${workspace.icons == "" ? "empty" : "occupied"}"
+         :space-evenly false
+         :onclick "hyprctl dispatch workspace ${workspace.id}"
+         :visible {workspace.id == CURRENT_WORKSPACE || workspace.icons != ""}
+         "${workspace.id}"
+         (box :visible {workspace.icons != ""}
+              "${workspace.icons}")))
 
 (defwidget workspaces []
-    (box :class "workspace-box"
+    (box :class "workspace module"
          :space-evenly false
-         (for ws in WORKSPACES (workspace_entry :ws ws))))
+         ;; Necessary because nested modules are lazily-evaluated
+         (label :visible false :text "${CURRENT_WORKSPACE}")
+         (for workspace in WORKSPACES (workspace-entry :workspace workspace))))
