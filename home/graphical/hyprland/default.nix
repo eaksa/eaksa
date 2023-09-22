@@ -86,7 +86,7 @@ _: let
       natural_scroll = true;
       force_no_accel = false;
       numlock_by_default = false;
-      sensitivity = 0.2;
+      sensitivity = -0.45;
       touchpad = {
         disable_while_typing = true;
         natural_scroll = true;
@@ -98,8 +98,8 @@ _: let
     };
     gestures = {
       workspace_swipe = true;
-      workspace_swipe_fingers = 4;
-      workspace_swipe_distance = 700;
+      workspace_swipe_fingers = 3;
+      workspace_swipe_distance = 300;
       workspace_swipe_invert = true;
       workspace_swipe_min_speed_to_force = 20;
       workspace_swipe_cancel_ratio = 0.3;
