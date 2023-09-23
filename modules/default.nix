@@ -3,6 +3,7 @@ _: {
     ./dev
     ./fonts
     ./graphical
+    ./programs
     ./shell
     ./system
     ./terminal

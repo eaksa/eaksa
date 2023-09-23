@@ -4,5 +4,5 @@
     "IBMPlexMono"
   ];
 in {
-  fonts.packages = [ (pkgs.nerdfonts.override { inherit fonts; }) ];
+  fonts.fonts = [ (pkgs.nerdfonts.override { inherit fonts; }) ];
 }

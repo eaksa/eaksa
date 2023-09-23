@@ -1,10 +1,12 @@
-{ pkgs, ... }: let
+{ lib, pkgs, ... }: let
+  inherit (lib) mkIf;
+  inherit (pkgs) stdenv;
   gtkExtraConfig = {
     Settings = ''
       gtk-application-prefer-dark-theme=1
     '';
   };
-in {
+in mkIf stdenv.isLinux {
   gtk = {
     enable = true;
     theme = {

@@ -20,7 +20,7 @@ in {
     enable = true;
     enableBashCompletion = true;
     enableCompletion = true;
-    syntaxHighlighting.enable = true;
+    enableSyntaxHighlighting = true;
     loginShellInit = "neofetch --config /etc/neofetch/config.conf";
     interactiveShellInit = builtins.readFile zshrc;
   };

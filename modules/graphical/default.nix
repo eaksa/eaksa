@@ -1,5 +1,5 @@
-_: {
-  imports = [
-    ./hyprland.nix
-  ];
+{ platform, ... }: {
+  imports = if platform.isDarwin
+    then [ ./sketchybar ]
+    else [ ./hyprland.nix ];
 }

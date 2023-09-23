@@ -1,4 +1,7 @@
-_: let
+{ lib, pkgs, ... }: let
+  inherit (lib) mkIf;
+  inherit (pkgs) stdenv;
+
   colours = {
     black = "rgb(1b1d2b)";
     red = "rgb(ff757f)";
@@ -182,7 +185,7 @@ _: let
     ];
   };
 
-in {
+in mkIf stdenv.isLinux {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
