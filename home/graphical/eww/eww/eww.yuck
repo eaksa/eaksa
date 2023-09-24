@@ -7,38 +7,80 @@
 (defwidget todo []
     (box :orientation "h"
          :visible false
-         (label :text "todo")))
+        (label :text "todo")))
 
 (defwidget dock []
     (box :class "dock"
          :space-evenly false
          :spacing 12
-    (children)))
+        (children)))
 
 (defwindow bar
-           :monitor 0
-           :exclusive true
-           :wm-ignore false
-           :geometry (geometry :x "0px"
-                               :y "0px"
-                               :width "100%"
-                               :anchor "top center")
-           (centerbox :class "bar"
-                      :orientation "h"
-                      (box :orientation "h"
-                           :space-evenly false
-                           :halign "start"
-                           (dock (user))
-                           (dock (workspaces)))
-                      (box :orientation "h"
-                           :space-evenly false
-                           :halign "center"
-                           (todo))
-                      (box :orientation "h"
-                           :space-evenly false
-                           :halign "end"
-                           (dock (battery)
-                                 (cpu)
-                                 (ram))
-                           (dock (date)
-                                 (time)))))
+    :monitor 0
+    :stacking "bg"
+    :exclusive true
+    :wm-ignore false
+    :geometry (geometry :x "0px"
+                        :y "0px"
+                        :width "100%"
+                        :anchor "top center")
+    (centerbox :class "bar"
+               :orientation "h"
+        (box :orientation "h"
+             :space-evenly false
+             :halign "start"
+            (dock (user))
+            (dock (workspaces)))
+        (box :orientation "h"
+             :space-evenly false
+             :halign "center"
+            (todo))
+        (box :orientation "h"
+             :space-evenly false
+             :halign "end"
+            (dock (battery) (cpu) (ram))
+            (dock (date) (time)))))
+
+;; TODO: Notch is still a work in progress.
+(defvar reveal_notch false)
+(defvar reveal_notch2 false)
+
+(defwidget item [position condition]
+    (revealer :reveal condition
+              :transition "slide${position}"
+        (box 
+            (revealer :reveal condition
+                      :transition "crossfade"
+                      :duration "1s"
+                (children :nth 0)))))
+
+(defwindow notch
+    :monitor 0
+    :stacking "overlay"
+    :exclusive false
+    :geometry (geometry :x "0px"
+                        :y "-38px"
+                        :width "184px"
+                        :height "32px"
+                        :anchor "top center")
+    (eventbox :class "notch"
+              :onhover "eww update reveal_notch2=true"
+              :onhoverlost "eww update reveal_notch2=false"
+        (box :space-evenly true
+             :spacing 180
+            (revealer :reveal { reveal_notch || reveal_notch2 }
+                      :transition "slideleft"
+                (box :space-evenly false
+                    (item :position "left"
+                          :condition reveal_notch
+                        "hello")
+                    (item :position "left"
+                          :condition reveal_notch2
+                        "hi")))
+            (revealer :reveal { reveal_notch || reveal_notch2 }
+                      :transition "slideright"
+                (box :space-evenly false
+                    (item :position "right"
+                          :condition reveal_notch
+                        "world"))))))
+

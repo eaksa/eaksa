@@ -11,13 +11,14 @@
          :space-evenly false
          :onclick "hyprctl dispatch workspace ${workspace.id}"
          :visible {workspace.id == CURRENT_WORKSPACE || workspace.icons != ""}
-         "${workspace.id}"
-         (box :visible {workspace.icons != ""}
-              "${workspace.icons}")))
+        "${workspace.id}"
+        (box :visible {workspace.icons != ""}
+            "${workspace.icons}")))
 
 (defwidget workspaces []
     (box :class "workspace module"
          :space-evenly false
-         ;; Necessary because nested modules are lazily-evaluated
-         (label :visible false :text "${CURRENT_WORKSPACE}")
-         (for workspace in WORKSPACES (workspace-entry :workspace workspace))))
+        ;; Necessary because nested modules are lazily-evaluated
+        (label :visible false :text "${CURRENT_WORKSPACE}")
+        (for workspace in WORKSPACES 
+            (workspace-entry :workspace workspace))))

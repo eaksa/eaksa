@@ -114,3 +114,13 @@ text {
 .system.alert * {
     color: #FF757F;
 }
+
+.notch {
+    background-color: #000000;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.notch label {
+    padding: 7px 10px 7px 10px;
+}
