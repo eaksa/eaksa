@@ -61,10 +61,6 @@
     };
   };
 
-  environment.etc = {
-    wallpapers.source = ../../wallpapers;
-  };
-
   system = {
     copySystemConfiguration = false;
     stateVersion = "23.05";
