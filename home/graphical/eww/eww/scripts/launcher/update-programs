@@ -1,0 +1,25 @@
+#!/bin/sh
+
+IFS=':' read -ra DIRS <<< "$XDG_DATA_DIRS"
+
+update-programs () {
+    local program_files=($(for dir in ${DIRS[@]}; do
+        find $dir -name '*.desktop' 2>/dev/null
+    done))
+
+    for file in ${program_files[@]}; do
+        local program_name="$(cat $file | grep -E '^Name=' -m 1 | cut -d '=' -f 2-)"
+        local program_icon="$(cat $file | grep -E '^Icon=' -m 1 | cut -d '=' -f 2-)"
+        local program_exec="$(cat $file | grep -E '^Exec=' -m 1 | cut -d '=' -f 2-)"
+        local use_terminal="$(cat $file | grep -E '^Terminal=' -m 1 | cut -d '=' -f 2-)"
+
+        jq -Mcn \
+            --arg name "$program_name" \
+            --arg icon "$program_icon" \
+            --arg exec "$program_exec" \
+            --arg terminal "$use_terminal" \
+            '{$name, $icon, $exec, $terminal}'
+    done
+}
+
+eww update programs="$(update-programs)"

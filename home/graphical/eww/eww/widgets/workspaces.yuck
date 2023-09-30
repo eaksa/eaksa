@@ -6,19 +6,30 @@
     :initial "1"
     "bash ./scripts/workspaces/get-active-workspace")
 
+(defvar show_all_workspace_entries false)
 (defwidget workspace-entry [workspace]
-    (box :class "workspace entry ${workspace.id == CURRENT_WORKSPACE ? "current" : ""} ${workspace.icons == "" ? "empty" : "occupied"}"
-         :space-evenly false
-         :onclick "hyprctl dispatch workspace ${workspace.id}"
-         :visible {workspace.id == CURRENT_WORKSPACE || workspace.icons != ""}
-        "${workspace.id}"
-        (box :visible {workspace.icons != ""}
-            "${workspace.icons}")))
+    (eventbox :class "entry ${workspace.id == CURRENT_WORKSPACE ? "current" : ""} 
+                                       ${workspace.icons == "" ? "empty" : "occupied"}"
+              :onclick "hyprctl dispatch workspace ${workspace.id}"
+        (revealer :reveal { workspace.id == CURRENT_WORKSPACE || 
+                            workspace.icons != ""             || 
+                            show_all_workspace_entries }
+                  :transition "slideright"
+            (box :spacing 4
+                 :space-evenly false
+                (label :class "index" 
+                       :text "${workspace.id}")
+                (label :class "icon" 
+                       :visible { workspace.icons != "" }
+                       :text "${workspace.icons}")))))
 
 (defwidget workspaces []
-    (box :class "workspace module"
-         :space-evenly false
-        ;; Necessary because nested modules are lazily-evaluated
-        (label :visible false :text "${CURRENT_WORKSPACE}")
-        (for workspace in WORKSPACES 
-            (workspace-entry :workspace workspace))))
+    (eventbox :onhover "eww update show_all_workspace_entries=true"
+              :onhoverlost "eww update show_all_workspace_entries=false"
+        (box :class "workspaces"
+             :space-evenly false
+            ;; Necessary because nested listeners are lazily-evaluated
+            (label :visible false 
+                   :text "${CURRENT_WORKSPACE}")
+            (for workspace in WORKSPACES 
+                (workspace-entry :workspace workspace)))))

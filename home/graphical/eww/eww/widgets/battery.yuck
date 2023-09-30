@@ -11,9 +11,10 @@
 (defwidget battery []
     (box :orientation "h"
          :space-evenly false
-         :class "battery ${MACSMC-AC == 1 ? "ac" : ""} ${MACSMC-BATTERY <= 20 ? "low": ""}" 
+         :class "battery ${MACSMC-AC == 1 ? "ac" : ""} 
+                         ${MACSMC-BATTERY <= 20 ? "critical": ""}" 
         (overlay :valign "center"
             (progress :value {(MACSMC-BATTERY - 10) / 70 * 100})
             (label :valign "center" 
                    :text "${MACSMC-AC == 1 ? "󱐋" : ""}${MACSMC-BATTERY}"))
-        (box :class "battery-lid")))
+        (box :class "lid ${MACSMC-BATTERY >= 80 ? "full" : ""}")))

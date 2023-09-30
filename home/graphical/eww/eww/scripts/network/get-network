@@ -1,0 +1,16 @@
+#!/bin/sh
+
+IFS='%' read -ra NETW <<< $(
+    nmcli -f "SSID,SIGNAL,IN-USE" device wifi |
+        grep '*' |
+        sed 's/ \+ /%/g'
+)
+
+if [ -z "$NETW" ]; then
+    echo ""
+else
+    echo "${NETW}" | jq -n \
+        --arg ssid "$NETW" \
+        --arg signal "${NETW[1]}" \
+        '{ssid: ($ssid // ""| tostring), signal: ($signal // 0 | tonumber)}'
+fi

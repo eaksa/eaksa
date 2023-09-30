@@ -1,0 +1,50 @@
+.battery {
+    trough, progress {
+        padding: 4px 0px 4px 0px;
+        border-radius: 3px;
+        min-height: 4px;
+    }
+    trough {
+        min-width: 40px;
+        background-color: #545C7E;
+    }
+    progress {
+        min-width: 2px;
+        background-color: #C0CAF5;
+    }
+    label {
+        color: #1B1D2B;
+        font-size: 10px;
+        font-weight: bold;
+    }
+    .lid {
+        min-width: 2px;
+        margin: 7px 0px 7px 1px;
+        background-color: #545C7E;
+        border-top-right-radius: 1px;
+        border-bottom-right-radius: 1px;
+    }
+    .lid.full {
+        background-color: #C0CAF5;
+    }
+}
+
+.battery.critical {
+    progress { 
+        background-color: #FF757F; 
+    }
+    label { 
+        color: #C0CAF5; 
+    }
+}
+.battery.ac { 
+    progress { 
+        background-color: #C3E88D; 
+    }
+    label { 
+        color: #1B1D2B; 
+    }
+    .lid.full { 
+        background-color: #C3E88D; 
+    }
+}

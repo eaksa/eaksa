@@ -1,126 +1,86 @@
+@use "stylesheets/user";
+@use "stylesheets/workspaces";
+
+@use "stylesheets/network";
+@use "stylesheets/battery";
+@use "stylesheets/datetime";
+
+// $bg_dark: #1F2335;
+// $bg: #24283B;
+// $bg_highlight: #292E42;
+
+$fg: #C0CAF5;
+// $fg_dark: #A9B1D6;
+// $fg_gutter: #3B4261;
+//
+// $dark3: #545C7E;
+// $dark5: #737AA2;
+//
+// $blue0: #3D59A1;
+// $blue: #7AA2F7;
+// $cyan: #7DCFFF;
+// $blue1: #2AC3DE;
+// $blue2: #0DB9D7;
+// $blue5: #89DDFF;
+// $blue6: #B4F9F8;
+// $blue7: #394B70;
+//
+// $purple: #9D7CD8;
+// $magenta: #BB9AF7;
+// $magenta2: #FF007C;
+//
+// $orange: #FF9E64;
+// $yellow: #E0AF68;
+//
+// $green: #9ECE6A;
+// $green1: #73DACA;
+// $green2: #41A6B5;
+// $teal: #1ABC9C;
+//
+// $red: #F7768E;
+// $red1: #DB4B4B;
+
 *{
     font-family: "BlexMono Nerd Font";
-}
+    color: $fg;
+    background-color: unset;
+    font-size: 13px;
 
-text {
-    color: #828BB8;
+    .ok { color: #7AA2F7; }
+    .good, .ac { color: #C3E88D; }
+    .warn, .low { color: #FFC777; }
+    .alert, .alert label, .critical, .critical label { color: #FF757F; }
 }
 
 .bar {
-    background-color: unset;
-    margin: 0px 4px 0px 4px;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
-.dock {
-    background-color: #222436;
+.group {
+    background-color: #1F2335;
     opacity: 0.9;
     border: 3px solid #1B1D2B;
     border-radius: 16px;
     padding: 4px 15px 4px 15px;
     margin: 6px 4px 0px 4px;
-    font-size: 13px;
 }
 
-.user {
-    margin: -6px -4px -6px -4px;
-    font-size: 18px;
-}
-
-.battery trough, .battery progress {
-    padding: 4px 0px 4px 0px;
-    border-radius: 3px;
-    min-height: 4px;
-}
-
-.battery progress {
-    min-width: 1px;
-}
-.battery trough {
-    min-width: 40px;
-    background-color: lighten($color: #1B1D2B, $amount: 25);
-}
-
-.battery label {
-    color: #1B1D2B;
-    font-size: 10px;
-    font-weight: bold;
-}
-
-.battery.low progress {
-    background-color: #FF757F;
-}
-
-.battery.low label {
-    color: #828BB8;
-}
-
-.battery.ac progress {
-    background-color: #C3E88D;
-}
-
-// Battery lid
-.battery box {
-    min-width: 2px;
-    margin: 7px 0px 7px 1px;
-    background-color: lighten($color: #1B1D2B, $amount: 25);
-    border-top-right-radius: 1px;
-    border-bottom-right-radius: 1px;
-}
-
-.workspace.module {
-    margin: -4px -15px -4px -15px;
-}
-
-.workspace.entry {
-    padding: 0px 14px 0px 14px;
-    color: #828BB8;
-    border-radius: 14px;
-}
-
-.workspace.entry box {
-    padding: 0px 2px 0px 8px;
-}
-
-.workspace.entry.current {
-    font-weight: bold;
-    color: #FFFFFF;
-    background-color: #3C3E4F;
-}
-
-.workspace.entry.current box {
-    color: #F5A97F;
-}
-
-.time {
-    font-weight: bold;
-}
-
-.system circular-progress {
-    background-color: lighten($color: #1B1D2B, $amount: 25);
-}
-
-.system label {
-    margin: 2px 2px 2px 2px;
-    padding-right: 2px;
-    border-radius: 10px;
-    background-color: #222436;
-    font-size: 8px;
-}
-
-.system.warning circular-progress {
-    color: #FFC777;
-}
-
-.system.alert * {
-    color: #FF757F;
+circular-progress {
+    background-color: #545C7E;
+    label {
+        margin: 2px 2px 2px 2px;
+        padding-right: 2px;
+        border-radius: 10px;
+        font-size: 8px;
+    }
 }
 
 .notch {
     background-color: #000000;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-}
-
-.notch label {
-    padding: 7px 10px 7px 10px;
+    label {
+        padding: 7px 10px 7px 10px;
+    }
 }

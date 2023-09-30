@@ -1,0 +1,36 @@
+.group.workspaces {
+    padding: 0px 0px 0px 0px;
+}
+
+.workspaces {
+    .entry {
+        border-radius: 14px;
+        box { 
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+        .index {
+            font-weight: bold;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+        .icon {
+            padding-left: 4px;
+            padding-right: 7px;
+        }
+        label { 
+            color: #545C7E; 
+        }
+    }
+    .entry:hover {
+        background-color: #292E42;
+        label { color: #A9B1D6; }
+    }
+    .entry.current {
+        font-weight: bold;
+        background-color: #3B4261;
+        .index { color: #C0CAF5; }
+        .icon { color: #F5A97F; }
+    }
+}
+

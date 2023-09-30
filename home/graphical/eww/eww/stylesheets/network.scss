@@ -1,0 +1,18 @@
+.wifi {
+    .icon {
+        label {
+            font-size: 18px;
+            margin-top: -4px;
+            margin-bottom: -4px;
+            margin-right: 6px;
+        }
+        .foreground { color: #C0CAF5; }
+        .background, .border { color: #545C7E; }
+    }
+    .ssid { margin-left: 6px; }
+}
+
+.wifi.ok .foreground { color: #C0CAF5; }
+.wifi.low .foreground { color: #FFC777; }
+.wifi.critical .foreground { color: #FF757F; }
+

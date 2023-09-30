@@ -1,4 +1,3 @@
 (defwidget user []
     (label :class "user"
            :text "🦅"))
-           ;; :text "󱄅"))

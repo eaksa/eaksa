@@ -1,0 +1,27 @@
+(defpoll WIFI
+    :interval "5s"
+    `bash ./scripts/network/get-network`)
+
+(defvar show_wifi_ssid false)
+(defwidget wifi []
+    (eventbox :visible { WIFI != "" }
+              :onhover `eww update show_wifi_ssid=true`
+              :onhoverlost `eww update show_wifi_ssid=false`
+        (box :class "wifi ${ WIFI.signal > 66 ? "ok" 
+                           : WIFI.signal > 33 ? "low" 
+                           : "critical" }"
+             :space-evenly false
+            (overlay :class "icon"
+                (label :class "background"
+                       :text "󰤨")
+                (label :class "foreground"
+                       :text "${ WIFI.signal > 75 ? "󰤨" 
+                               : WIFI.signal > 50 ? "󰤥" 
+                               : WIFI.signal > 25 ? "󰤢" 
+                               : "󰤟" }")
+                (label :class "border"
+                       :text "󰤯"))
+            (revealer :reveal show_wifi_ssid 
+                      :transition "slideleft"
+                (label :class "ssid" 
+                       :text "${WIFI.ssid}")))))
