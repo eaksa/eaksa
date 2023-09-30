@@ -10,32 +10,7 @@
       firefoxConfigPath;
 
   firefoxPackage = if pkgs.stdenv.isLinux then
-    # pkgs.firefox-wayland
-    pkgs.wrapFirefox
-    pkgs.firefox-unwrapped {
-      extraPolicies = {
-        CaptivePortal = false;
-        DisableFirefoxStudies = true;
-        DisablePocket = true;
-        DisableTelemetry = true;
-        DisableFirefoxAccounts = true;
-        NoDefaultBookmarks = true;
-        OfferToSaveLogins = true;
-        OfferToSaveLoginsDefault = true;
-        PasswordManagerEnabled = false;
-        FirefoxHome = {
-          Search = true;
-          Pocket = false;
-          Snippets = false;
-          TopSites = false;
-          Highlights = false;
-        };
-        UserMessaging = {
-          ExtensionRecommendations = false;
-          SkipOnboarding = true;
-        };
-      };
-    }
+    pkgs.firefox-wayland
   else
     pkgs.firefox-bin;
 
@@ -120,12 +95,12 @@
       "breakpad.reportURL" = "";
       "browser.tabs.crashReporting.sendReport" = false;
 
-      # == CAPTIVE PORTAL DETECTION / NETWORK CHECKS ==
-      # Disable captive portal detection
-      "captivedetect.canonicalURL" = "";
-      "network.captive-portal-service.enabled" = false;
-      # Disable network connections checks
-      "network.connectivity-service.enabled" = false;
+      # # == CAPTIVE PORTAL DETECTION / NETWORK CHECKS ==
+      # # Disable captive portal detection
+      # "captivedetect.canonicalURL" = "";
+      # "network.captive-portal-service.enabled" = false;
+      # # Disable network connections checks
+      # "network.connectivity-service.enabled" = false;
 
       # == SAFE BROWSING ==
       # Disable safe browsing service
@@ -275,7 +250,7 @@
       # Force exclusion of private IPs from ICE candidates
       "media.peerconnection.ice.no_host" = true;
       # Disable WebGL
-      "webgl.disabled" = true;
+      # "webgl.disabled" = true;
       # Disable autoplay of HTML5 media:
       #   0 = allow all
       #   1 = block non-muted media (default)
