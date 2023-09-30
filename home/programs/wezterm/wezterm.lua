@@ -16,7 +16,7 @@ return {
     },
     color_scheme = "tokyonight_moon",
     window_decorations = "RESIZE | MACOS_FORCE_DISABLE_SHADOW",
-    window_background_opacity = 0.95,
+    window_background_opacity = 0.85,
     enable_tab_bar = false,
 	font = wezterm.font_with_fallback {
 		{
