@@ -181,6 +181,7 @@
       "swww init &"
       "eww close-all"
       "eww open bar"
+      "eww open notch"
     ];
   };
 
