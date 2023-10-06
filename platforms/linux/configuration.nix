@@ -21,10 +21,6 @@
       peripheralFirmwareDirectory = ./apple-silicon/firmware;
     };
     bluetooth = { enable = true; };
-    pulseaudio = {
-      package = pkgs.pulseaudioFull;
-      enable = true;
-    };
   };
 
   networking = {
@@ -33,9 +29,23 @@
     networkmanager.enable = true;
   };
 
+  security = {
+    rtkit.enable = true;
+  };
+
   services = {
     dbus.enable = true;
     openssh.enable = true;
+    pipewire = {
+      enable = true;
+      audio.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      wireplumber.enable = true;
+    };
     printing.enable = true;
     upower.enable = true;
     xserver = {
@@ -49,7 +59,7 @@
 
   time = { inherit (user) timeZone; };
 
-  sound.enable = true;
+  sound.enable = false;
   console.useXkbConfig = true;
 
   users = {
