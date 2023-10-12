@@ -1,6 +1,6 @@
 { pkgs, ... }: let
   pythonPackages = ps: with ps; [
-    juypter
+    jupyter
   ];
 in {
   environment.systemPackages = [ (pkgs.python3.withPackages pythonPackages) ];
