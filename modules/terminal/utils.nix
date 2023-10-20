@@ -4,6 +4,7 @@
     fzf
     htop
     ripgrep
+    unzip
     wget
   ];
 }
