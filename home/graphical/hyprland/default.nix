@@ -118,6 +118,7 @@
       "SUPER, F, exec, firefox"
       # Open editor
       "SUPER, d, exec, wezterm start -- $EDITOR"
+      "SUPER, p, exec, wezterm start -- $EDITOR"
       # Open file manager
       "SUPER, g, exec, wezterm start -- ranger ~"
       "SUPER, c, exec, wezterm start -- ranger ~/.nixos"
