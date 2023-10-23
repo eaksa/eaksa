@@ -18,46 +18,66 @@ return {
     window_decorations = "RESIZE | MACOS_FORCE_DISABLE_SHADOW",
     window_background_opacity = 0.85,
     enable_tab_bar = false,
-	font = wezterm.font_with_fallback {
-		{
-			family = "LigalexMono Nerd Font",
-			weight = "DemiBold",
-		},
-		{
-			family = "BlexMono Nerd Font",
-			weight = "DemiBold",
-		},
-	},
+    font = wezterm.font({
+        family = "BlexMono Nerd Font",
+        weight = "DemiBold",
+    }),
+    -- TODO: Replace with version containing ligatures
+	-- font = wezterm.font_with_fallback {
+	-- 	{
+	-- 		family = "LigalexMono Nerd Font",
+	-- 		weight = "DemiBold",
+	-- 	},
+	-- 	{
+	-- 		family = "BlexMono Nerd Font",
+	-- 		weight = "DemiBold",
+	-- 	},
+	-- },
     font_size = 11,
     font_rules = {
         {
             intensity = "Half",
-            italic = false,
-			font = wezterm.font_with_fallback {
-				{
-					family = "LigalexMono Nerd Font",
-					weight = "DemiBold",
-				},
-				{
-					family = "BlexMono Nerd Font",
-					weight = "DemiBold",
-				},
-			},
+			font = wezterm.font({
+				family = "BlexMono Nerd Font",
+				weight = "DemiBold",
+            }),
         },
         {
             intensity = "Bold",
-            italic = false,
-			font = wezterm.font_with_fallback {
-				{
-					family = "LigalexMono Nerd Font",
-					weight = "Bold",
-				},
-				{
-					family = "BlexMono Nerd Font",
-					weight = "Bold",
-				},
-			},
+			font = wezterm.font({
+				family = "BlexMono Nerd Font",
+				weight = "Bold",
+            }),
         },
+        -- TODO: Replace with version containing ligatures
+        -- {
+        --     intensity = "Half",
+        --     italic = false,
+		-- 	font = wezterm.font_with_fallback {
+		-- 		{
+		-- 			family = "LigalexMono Nerd Font",
+		-- 			weight = "DemiBold",
+		-- 		},
+		-- 		{
+		-- 			family = "BlexMono Nerd Font",
+		-- 			weight = "DemiBold",
+		-- 		},
+		-- 	},
+        -- },
+        -- {
+        --     intensity = "Bold",
+        --     italic = false,
+		-- 	font = wezterm.font_with_fallback {
+		-- 		{
+		-- 			family = "LigalexMono Nerd Font",
+		-- 			weight = "Bold",
+		-- 		},
+		-- 		{
+		-- 			family = "BlexMono Nerd Font",
+		-- 			weight = "Bold",
+		-- 		},
+		-- 	},
+        -- },
         {
             intensity = "Normal",
             italic = true,
