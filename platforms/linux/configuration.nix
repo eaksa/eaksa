@@ -25,8 +25,14 @@
 
   networking = {
     inherit hostName;
-    wireless.enable = false;
-    networkmanager.enable = true;
+    wireless = {
+      enable = false;
+      iwd.enable = true;
+    };
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
   };
 
   security = {
