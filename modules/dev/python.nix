@@ -6,7 +6,6 @@
     pymongo
     matplotlib
     numpy
-    replicate
   ];
 in {
   environment.systemPackages = [ (pkgs.python3.withPackages pythonPackages) ];
