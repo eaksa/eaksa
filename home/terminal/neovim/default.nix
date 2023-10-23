@@ -3,8 +3,8 @@
     name = "aviaksa";
     owner = "eaksa";
     repo = "aviaksa";
-    rev = "479e1a94a48ae135b98f817fe084f72b388490cb";
-    sha256 = "QEM/wQl+Y5aPFNMZ6vRihlD76ly2bWmVBMhTlyxRDDo=";
+    rev = "5ff8491ac82ddc5151ae51800b6059fed334a647";
+    sha256 = "wVaPsWzlvuBnDgMIIw1fN4748aITdjGJy+xYR3U6RMo=";
   };
 in {
   # Aviaksa dependencies

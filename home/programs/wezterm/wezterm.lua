@@ -83,8 +83,5 @@ return {
 			),
         },
     },
-    set_environment_variables = {
-        TERM = "wezterm",
-        EDITOR = "nvim",
-    },
+    term = "wezterm",
 }

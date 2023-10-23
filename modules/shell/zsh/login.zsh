@@ -1,3 +1,5 @@
+export TERM=wezterm
+
 alias -g mkdir="mkdir -p"
 alias -g neofetch="neofetch --config /etc/neofetch/config.conf"
 
