@@ -6,6 +6,7 @@
     ]
     else [
       ./audio.nix
+      ./ios.nix
       ./wayland.nix
     ];
 }
