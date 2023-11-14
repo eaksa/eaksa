@@ -1,12 +1,11 @@
 { pkgs, ... }: let
   pythonPackages = ps: with ps; [
-    flask
+    build
     jupyter
-    pillow
-    pymongo
-    matplotlib
-    numpy
   ];
 in {
-  environment.systemPackages = [ (pkgs.python3.withPackages pythonPackages) ];
+  environment.systemPackages = with pkgs; [
+    (python3.withPackages pythonPackages)
+    pipenv
+  ];
 }
