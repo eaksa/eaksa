@@ -72,7 +72,7 @@
     defaultUserShell = pkgs.zsh;
     users.${user.name} = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "audio" "networkmanager" ];
+      extraGroups = [ "wheel" "audio" "networkmanager" "docker" ];
       initialPassword = "password";
     };
   };

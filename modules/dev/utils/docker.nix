@@ -1,3 +1,9 @@
-{ pkgs, ... }: {
-  environment.systemPackages = [ pkgs.docker ];
+_: {
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
 }
