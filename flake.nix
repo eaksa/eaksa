@@ -91,7 +91,7 @@
               home-manager = configuration.homeManager;
             }
           ];
-        specialArgs = { inherit inputs hostName platform user; };
+        specialArgs = { inherit inputs hostName platform system user; };
       in if platform.isDarwin
         then darwin.lib.darwinSystem {
           inherit system modules specialArgs;

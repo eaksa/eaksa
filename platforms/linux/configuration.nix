@@ -1,26 +1,9 @@
-{ hostName, pkgs, user, ... }: {
-  imports = [
-    ./apple-silicon/apple-silicon-support
-  ];
+{ hostName, pkgs, system, user, ... }: {
 
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = false;
-    };
-    extraModprobeConfig = ''
-      options hid_apple swap_fn_leftctrl=1
-    '';
-    m1n1CustomLogo = ./boot_logo.png;
-  };
+  imports = [ ./${system} ];
 
   hardware = {
-    asahi = {
-      useExperimentalGPUDriver = true;
-      experimentalGPUInstallMode = "overlay";
-      peripheralFirmwareDirectory = ./apple-silicon/firmware;
-    };
-    bluetooth = { enable = true; };
+    bluetooth.enable = true;
   };
 
   networking = {
