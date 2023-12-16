@@ -113,6 +113,10 @@
         system = "aarch64-linux";
         hostName = "marco-2021";
       };
+      titan-2014 = configuration.system {
+        system = "x86_64-linux";
+        hostName = "titan-2014";
+      };
     };
   };
 }
