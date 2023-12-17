@@ -1,13 +1,13 @@
-(defwidget bar-group [?class 
+(defwidget bar-group [?class
                   ?visible
-                  ?onhover 
+                  ?onhover
                   ?onhoverlost]
     (eventbox :visible { visible ?: true }
               :onhover "${onhover}"
               :onhoverlost "${onhoverlost}"
-        (box :class "group ${class}" 
-             :spacing 12 
-             :space-evenly false 
+        (box :class "group ${class}"
+             :spacing 12
+             :space-evenly false
             (children))))
 
 (defwindow bar :monitor 0
@@ -18,20 +18,20 @@
     (box :class "bar"
         (box :halign "start"
              :space-evenly false
-            (bar-group :class "user" 
+            (bar-group :class "user"
                 (user))
             (bar-group :class "workspaces"
                 (workspaces)))
         (box :halign "end"
              :space-evenly false
-            (bar-group :class "network" 
-                   :visible { WIFI != "" }
+            (bar-group :class "network"
+                       :visible { WIFI != "" }
                 (wifi))
             (bar-group :class "system"
-                (battery) 
-                (cpu) 
+                (battery)
+                (cpu)
                 (ram))
             (bar-group :class "datetime"
-                (date) 
+                (date)
                 (time)))))
 
