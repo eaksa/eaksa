@@ -190,7 +190,6 @@ in mkIf stdenv.isLinux {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    enableNvidiaPatches = true;
     inherit settings;
   };
 }
