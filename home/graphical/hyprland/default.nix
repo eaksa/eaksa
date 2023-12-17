@@ -30,7 +30,6 @@
     };
     decoration = {
       rounding = 8;
-      multisample_edges = true;
       active_opacity = 0.95;
       inactive_opacity = 0.85;
       fullscreen_opacity = 1.0;

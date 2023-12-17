@@ -1,6 +1,8 @@
 { pkgs, ... }: let
   fonts = [
     "CascadiaCode"
+    "GeistMono"
+    "MartianMono"
     "IBMPlexMono"
   ];
 in {

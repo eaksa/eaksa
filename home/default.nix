@@ -5,7 +5,7 @@ in {
   home = {
     username = "${user.name}";
     homeDirectory = mkDefault "/home/${user.name}";
-    stateVersion = "23.05";
+    stateVersion = "23.11";
   };
   imports = [
     ./graphical
