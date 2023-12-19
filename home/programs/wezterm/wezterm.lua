@@ -14,7 +14,8 @@ return {
             action = wezterm.action.DisableDefaultAssignment
         },
     },
-    enable_wayland = false;
+    enable_wayland = false,
+    audible_bell = "Disabled",
     color_scheme = "tokyonight_moon",
     window_decorations = "RESIZE | MACOS_FORCE_DISABLE_SHADOW",
     window_background_opacity = 0.85,
